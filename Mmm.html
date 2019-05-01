@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Mmm</title>
+
+		<!-- 适应手机 -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="format-detection" content="telephone=no" />
+		
+		<!-- APlayer -->
+		<link href="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.css" rel="stylesheet">
+		<script src="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.js"></script>
+		
+		<!-- JQ -->
+		<script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+
+		<style>
+			#header{
+				border: 1px solid mediumaquamarine;
+				height: 30px;
+				line-height: 30px;
+				width: 500px;
+				margin: 0px auto;
+				padding: 0px;
+			}
+
+			#article{
+				border-left: 1px solid darkgray;
+				border-right: 1px solid darkgray;
+				height: 300px;
+				width: 500px;
+				margin: 0px auto;
+			}
+
+			#footer{
+				border: 1px solid darkorange;
+				height: 40px;
+				width: 500px;
+				margin: 0px auto;
+			}
+
+			#article div ul{
+				padding-left: 0px;
+			}
+
+			#article div li{
+				list-style: none;
+				border: 1px solid mediumaquamarine;
+				height: 30px;
+			}
+
+			#url{
+				border: 1px solid black;
+				width: 280px;
+				height: 24px;
+				font-size: 16px;
+				float: left;
+				margin-top: 8px;
+			}
+			
+			#url-play{
+				height: 30px;
+			}
+			
+			#play{
+				font-size: 16px;
+				border: 1px solid azure;
+				float: right;
+				height: 30px;
+				width: 50px;
+				background: darkgrey;
+				border-radius: 12%;
+				margin-top: 7px;
+				margin-right: 140px;
+			}
+
+			#player1{
+				border: 1px solid rgb(60, 216, 255);
+				height: 90px;
+			}
+
+			#tab-id{
+				float: right;
+				width: 402px;
+			}
+
+			#wyy-id,#xm-id,#qq-id{
+				border-left: 1px solid #A9A9A9;
+				float: left;
+				width: 132px;
+				text-align: center;
+				line-height: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<header id="header">
+			输入歌曲ID：
+			<div id="tab-id">
+				<div id="wyy-id">网易云音乐</div>
+				<div id="xm-id">虾米音乐</div>
+				<div id="qq-id">QQ音乐</div>
+			</div>
+		</header>
+		
+		<article>
+			<div id="article">
+				<div id="url-play">
+					<input type="text" id="url" value=""/>
+					<input type="button" id="play" value="▶">
+				</div>
+				<div>
+					<ul>
+						<li>Emm</li>
+					</ul>
+				</div>
+				<div id="player1">
+					<pre class="aplayer-lrc-content">
+						
+					</pre>
+				</div>
+			</div>
+		</article>
+			
+		<footer>
+			<div id="footer" align="middle">
+				<a href="https://aplayer.js.org/">APlayer</a>
+			</div>
+		</footer>
+		
+		
+		<script type="text/javascript">
+			
+			$(function(){
+				$("#play").click(function(){
+					var url = "https://music.163.com/song/media/outer/url?id="+document.getElementById("url").value+".mp3";
+					
+					var title = "T";
+					var author = "T";
+					var ap = new APlayer({
+						element: document.getElementById('player1'),
+						narrow: false,
+						autoplay: true,
+						showlrc: true,
+						music: {
+							title: title,
+							author: author,
+							url: url
+						}
+					});
+					ap.init();
+				});
+				
+				$("#wyy-id").css("background","red");//默认网易云
+				$("#xm-id,#qq-id").css("text-decoration","line-through");//划掉虾米、QQ
+				$("#wyy-id").click(function(){
+					$(this).css("background","red");
+					$("#xm-id").css("background","none");
+					$("#qq-id").css("background","none");
+				});
+				
+				$("#xm-id").click(function(){
+					$(this).css("background","orangered");
+					$("#wyy-id").css("background","none");
+					$("#qq-id").css("background","none");
+				});
+				
+				$("#qq-id").click(function(){
+					$(this).css("background","yellowgreen");
+					$("#wyy-id").css("background","none");
+					$("#xm-id").css("background","none");
+				});
+			});
+
+		</script>
+	</body>
+</html>
