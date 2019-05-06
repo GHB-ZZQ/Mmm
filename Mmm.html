@@ -3,102 +3,137 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>Mmm</title>
-
+		
 		<!-- 适应手机 -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="format-detection" content="telephone=no" />
+
+		<!-- 跨域 -->
+		<meta http-equiv="Access-Control-Allow-Origin" content="*" />
 		
 		<!-- APlayer -->
 		<link href="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.css" rel="stylesheet">
 		<script src="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.js"></script>
 		
 		<!-- JQ -->
-		<script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        
+        <style>
+            #header{
+                border: 1px solid mediumaquamarine;
+                height: 30px;
+                line-height: 30px;
+                width: 496px;
+                margin: 0px auto;
+                padding: 0px;
+            }
 
-		<style>
-			#header{
-				border: 1px solid mediumaquamarine;
-				height: 30px;
-				line-height: 30px;
-				width: 500px;
-				margin: 0px auto;
-				padding: 0px;
-			}
+            #article{
+                border-left: 1px solid darkgray;
+                border-right: 1px solid darkgray;
+                height: 100%;
+                width: 496px;
+                margin: 0px auto;
+            }
 
-			#article{
-				border-left: 1px solid darkgray;
-				border-right: 1px solid darkgray;
-				height: 300px;
-				width: 500px;
-				margin: 0px auto;
-			}
+            #footer{
+                border: 1px solid darkorange;
+                height: 40px;
+                width: 496px;
+                margin: 0px auto;
+            }
 
-			#footer{
-				border: 1px solid darkorange;
-				height: 40px;
-				width: 500px;
-				margin: 0px auto;
-			}
+            #article div ul{
+                padding-left: 0px;
+                border-top: 1px solid mediumaquamarine;
+            }
 
-			#article div ul{
-				padding-left: 0px;
-			}
+            #li-playlist>li{
+                list-style: none;
+                border-bottom: 1px solid mediumaquamarine;
+                line-height: 25px;
+                height: 25px;
+                font-size: 14px;
+            }
+            #li-playlist span{
+                float: left;
+                width: 400px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                border-left: 1px solid rgb(158, 179, 162);
+            }
 
-			#article div li{
-				list-style: none;
-				border: 1px solid mediumaquamarine;
-				height: 30px;
-			}
+            #url,#playlist,#search-input{
+                border: 1px solid black;
+                width: 280px;
+                height: 24px;
+                font-size: 16px;
+                color: #D3D3D3;
+                float: left;
+                margin-top: 8px;
+            }
 
-			#url{
-				border: 1px solid black;
-				width: 280px;
-				height: 24px;
-				font-size: 16px;
-				float: left;
-				margin-top: 8px;
-			}
-			
-			#url-play{
-				height: 30px;
-			}
-			
-			#play{
-				font-size: 16px;
-				border: 1px solid azure;
-				float: right;
-				height: 30px;
-				width: 50px;
-				background: darkgrey;
-				border-radius: 12%;
-				margin-top: 7px;
-				margin-right: 140px;
-			}
+            #url-play{
+                height: 45px;
+            }
 
-			#player1{
-				border: 1px solid rgb(60, 216, 255);
-				height: 90px;
-			}
+            #getlist-div,#search-div{
+                height: 32px;
+            }
 
-			#tab-id{
-				float: right;
-				width: 402px;
-			}
+            #getlist-div>span,#search-div>span{
+                color: #A9A9A9;
+                font-size: 14px;
+                float: left;
+                margin-top: 13px;
+                margin-left: 5px;
+            }
 
-			#wyy-id,#xm-id,#qq-id{
-				border-left: 1px solid #A9A9A9;
-				float: left;
-				width: 132px;
-				text-align: center;
-				line-height: 30px;
-			}
-		</style>
+            #play,#search,#getlist{
+                font-size: 16px;
+                border: 1px solid azure;
+                float: left;
+                height: 30px;
+                background: darkgrey;
+                border-radius: 10%;
+                margin-top: 7px;
+                margin-left: 20px;
+            }
+
+            .li-play{
+                font-size: 14px;
+                border: 1px solid azure;
+                float: left;
+                background: white;
+                border-radius: 10%;
+                margin-top: 2px;
+            }
+
+            #player1{
+                border: 1px solid rgb(60, 216, 255);
+                height: 90px;
+            }
+
+            #tab-id{
+                float: right;
+                width: 398px;
+            }
+
+            #wyy-id,#xm-id,#qq-id{
+                border-left: 1px solid #A9A9A9;
+                float: left;
+                width: 131px;
+                text-align: center;
+                line-height: 30px;
+            }
+        </style>
+        
 	</head>
 	<body>
 		
 		<header id="header">
-			输入歌曲ID：
+			&nbsp;输入歌曲ID:
 			<div id="tab-id">
 				<div id="wyy-id">网易云音乐</div>
 				<div id="xm-id">虾米音乐</div>
@@ -108,19 +143,34 @@
 		
 		<article>
 			<div id="article">
+
 				<div id="url-play">
-					<input type="text" id="url" value=""/>
-					<input type="button" id="play" value="▶">
+					<input type="text" id="url" value="566436630"/>
+					<input type="button" id="play" value="播放">
 				</div>
-				<div>
-					<ul>
-						<li>Emm</li>
-					</ul>
-				</div>
+
 				<div id="player1">
 					<pre class="aplayer-lrc-content">
 						
 					</pre>
+				</div>
+				
+				<div id="search-div">
+					<input type="text" id="search-input" value="Forget to Forget"/>
+					<input type="button" id="search" value="搜索">
+					<span>输入歌名或ID</span>
+				</div>
+				
+				<div id="getlist-div">
+					<input type="text" id="playlist" value="78645916"/>
+					<input type="button" id="getlist" value="获取歌单">
+					<span>输入歌单ID</span>
+				</div>
+				
+				<div>
+					<ul id="li-playlist">
+						
+					</ul>
 				</div>
 			</div>
 		</article>
@@ -129,52 +179,112 @@
 			<div id="footer" align="middle">
 				<a href="https://aplayer.js.org/">APlayer</a>
 			</div>
-		</footer>
-		
-		
-		<script type="text/javascript">
-			
-			$(function(){
-				$("#play").click(function(){
-					var url = "https://music.163.com/song/media/outer/url?id="+document.getElementById("url").value+".mp3";
-					
-					var title = "T";
-					var author = "T";
-					var ap = new APlayer({
-						element: document.getElementById('player1'),
-						narrow: false,
-						autoplay: true,
-						showlrc: true,
-						music: {
-							title: title,
-							author: author,
-							url: url
-						}
-					});
-					ap.init();
-				});
-				
-				$("#wyy-id").css("background","red");//默认网易云
-				$("#xm-id,#qq-id").css("text-decoration","line-through");//划掉虾米、QQ
-				$("#wyy-id").click(function(){
-					$(this).css("background","red");
-					$("#xm-id").css("background","none");
-					$("#qq-id").css("background","none");
-				});
-				
-				$("#xm-id").click(function(){
-					$(this).css("background","orangered");
-					$("#wyy-id").css("background","none");
-					$("#qq-id").css("background","none");
-				});
-				
-				$("#qq-id").click(function(){
-					$(this).css("background","yellowgreen");
-					$("#wyy-id").css("background","none");
-					$("#xm-id").css("background","none");
-				});
-			});
+        </footer>
+        
+        
+        <script>
+            $(function () {
+                $("#wyy-id").css("background", "red");//默认网易云
+                $("#xm-id,#qq-id").css("text-decoration", "line-through");//划掉虾米、QQ
+                $("#wyy-id").click(function () {
+                    $(this).css("background", "red");
+                    $("#xm-id").css("background", "none");
+                    $("#qq-id").css("background", "none");
+                });
 
-		</script>
+                $("#xm-id").click(function () {
+                    $(this).css("background", "orangered");
+                    $("#wyy-id").css("background", "none");
+                    $("#qq-id").css("background", "none");
+                });
+
+                $("#qq-id").click(function () {
+                    $(this).css("background", "yellowgreen");
+                    $("#wyy-id").css("background", "none");
+                    $("#xm-id").css("background", "none");
+                });
+
+                $("#url,#playlist,#search-input").click(function () {
+                    $(this).css("color", "black");
+                });
+
+                function play(m_id, m_name, m_singer) {
+                    var url = "https://music.163.com/song/media/outer/url?id=" + m_id + ".mp3";
+                    var pic = "https://api.itooi.cn/music/netease/pic?key=579621905&id=" + m_id;
+                    alert("播放:" + url);
+                    var title = m_name;
+                    var author = m_singer;
+                    var ap = new APlayer({
+                        element: document.getElementById('player1'),
+                        narrow: false,
+                        autoplay: true,
+                        showlrc: true,
+                        music: {
+                            title: title,
+                            author: author,
+                            url: url,
+                            pic: pic
+                        }
+                    });
+                    ap.init();
+                };
+
+                $("#play").click(function () {
+                    var m_id = $("#url").val();
+                    play(m_id);
+                });
+
+                // $(".li-play").click(function () {
+                // 	var m_name = $(this).$(".m_n").text();
+                // 	var m_singer = $(this).$(".m_s").text();
+                // 	var m_id = $(this).$(".m_i").text();
+                // 	play(m_id, m_name, m_singer);
+                // });
+
+                $("#search").click(function () {
+                    $("#li-playlist>li").remove();
+                    var song = $("#search-input").val();
+                    var search = "https://api.itooi.cn/music/netease/search?key=579621905&s=" + song + "&type=song&limit=5&callback=?";
+                    $.ajax({
+                        url: search,
+                        success: function (result) {
+                            for (var i = 0; i < 5; i++) {
+                                var m_id = result.data[i].id;
+                                var m_name = result.data[i].name;
+                                var m_singer = result.data[i].singer;
+                                $("#li-playlist").append("<li><input type='button' class='li-play' value='▶'/><span>&nbsp;"+m_name+" - "+m_singer+" - "+m_id+"</span></li>");
+                            };
+                        },
+                        error: function (a, b, c) {
+                            $("#li-playlist").append("<li>" + b + ":json解析错误</li>");
+                        }
+                    });
+
+                });
+
+                $("#getlist").click(function () {
+                    $("#li-playlist>li").remove();
+                    var list_id = $("#playlist").val();
+                    var url = "https://api.itooi.cn/music/netease/songList?key=579621905&id=" + list_id + "&callback=?";
+                    $.ajax({
+                        url: url,
+                        type: "GET",
+                        success: function (result) {
+                            var list_l = result.data.songs.length;
+                            alert("共" + list_l + "首歌")
+                            for (var i = 0; i < list_l; i++) {
+                                var m_id = result.data.songs[i].id;
+                                var m_name = result.data.songs[i].name;
+                                var m_singer = result.data.songs[i].singer;
+                                $("#li-playlist").append("<li><input type='button' class='li-play' value='▶'/><span>&nbsp;<a class='m_n'>"+m_name+"</a> - <a class='m_s'>"+m_singer+"</a> - <a class='m_i'>"+m_id+"</a></span></li>");
+                            };
+                        },
+                        error: function (a, b, c) {
+                            $("#li-playlist").append("<li>" + b + "：json解析错误</li>");
+                        }
+                    });
+                });
+            });
+        </script>
 	</body>
 </html>
