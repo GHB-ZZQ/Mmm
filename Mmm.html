@@ -208,10 +208,29 @@
                     $(this).css("color", "black");
                 });
 
+                $("#url,#playlist,#search-input").focus(function () {
+                    $(this).val("");
+                });
+
+                $("#url,#playlist,#search-input").blur(function(){
+                    if($("#url").val()==""){
+                        $("#url").css("color", "#D3D3D3");
+                        $("#url").val("566436630");
+                    }
+                    if($("#search-input").val()==""){
+                        $("#search-input").css("color", "#D3D3D3");
+                        $("#search-input").val("Forget to Forget");
+                    }
+                    if($("#playlist").val()==""){
+                        $("#playlist").css("color", "#D3D3D3");
+                        $("#playlist").val("78645916");
+                    }
+                });
+
                 function play(m_id, m_name, m_singer) {
                     var url = "https://music.163.com/song/media/outer/url?id=" + m_id + ".mp3";
                     var pic = "https://api.itooi.cn/music/netease/pic?key=579621905&id=" + m_id;
-                    alert("播放:" + url);
+                    alert("播放:  "+m_name+" - "+m_singer+" - "+m_id);
                     var title = m_name;
                     var author = m_singer;
                     var ap = new APlayer({
@@ -231,28 +250,28 @@
 
                 $("#play").click(function () {
                     var m_id = $("#url").val();
-                    play(m_id);
+                    play(m_id,"T","T");
                 });
 
-                // $(".li-play").click(function () {
-                // 	var m_name = $(this).$(".m_n").text();
-                // 	var m_singer = $(this).$(".m_s").text();
-                // 	var m_id = $(this).$(".m_i").text();
-                // 	play(m_id, m_name, m_singer);
-                // });
+                $(document).on("click",".li-play",function () {
+                    var m_name = $(this).parent().find(".m_n").text();
+                    var m_singer = $(this).parent().find(".m_s").text();
+                    var m_id = $(this).parent().find(".m_i").text();
+                    play(m_id, m_name, m_singer);
+                });
 
                 $("#search").click(function () {
                     $("#li-playlist>li").remove();
                     var song = $("#search-input").val();
-                    var search = "https://api.itooi.cn/music/netease/search?key=579621905&s=" + song + "&type=song&limit=5&callback=?";
+                    var search = "https://api.itooi.cn/music/netease/search?key=579621905&s=" + song + "&type=song&limit=10&callback=?";
                     $.ajax({
                         url: search,
                         success: function (result) {
-                            for (var i = 0; i < 5; i++) {
+                            for (var i = 0; i < 10; i++) {
                                 var m_id = result.data[i].id;
                                 var m_name = result.data[i].name;
                                 var m_singer = result.data[i].singer;
-                                $("#li-playlist").append("<li><input type='button' class='li-play' value='▶'/><span>&nbsp;"+m_name+" - "+m_singer+" - "+m_id+"</span></li>");
+                                $("#li-playlist").append("<li><input type='button' class='li-play' value='▶'/><span>&nbsp;<a class='m_n'>"+m_name+"</a> - <a class='m_s'>"+m_singer+"</a> - <a class='m_i'>"+m_id+"</a></span></li>");
                             };
                         },
                         error: function (a, b, c) {
